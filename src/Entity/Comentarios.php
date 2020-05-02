@@ -34,6 +34,11 @@ class Comentarios
     private $fecha_publicacion;
 
     /**
+     * @ORM\Column(type="string", length=8000)
+     */
+    private $post_id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comentarios")
      */
     private $user;
@@ -48,7 +53,7 @@ class Comentarios
      */
     public function __construct($id)
     {
-        $this->post_id = $id;
+        // $this->post_id = $id;
         $this->fecha_publicacion = date('now');
     }
 
@@ -98,7 +103,7 @@ class Comentarios
      */
     public function setPost($post): void
     {
-        $this->posts = $post;
+        $this->post = $post;
     }
 
     public function getFechaPublicacion(): ?\DateTimeInterface
@@ -129,6 +134,26 @@ class Comentarios
     public function setUserId($userId)
     {
         $this->user_id = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of post_id
+     */
+    public function getPostId()
+    {
+        return $this->post_id;
+    }
+
+    /**
+     * Set the value of post_id
+     *
+     * @return  self
+     */
+    public function setPostId($postId)
+    {
+        $this->post_id = $postId;
 
         return $this;
     }

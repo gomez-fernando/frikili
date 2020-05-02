@@ -40,6 +40,8 @@
 	<div class="container p-3">
 		{{ form(form) }}
 			<h3>Comentarios</h3>
+			{{dump(comentarios)}}
+
 			{% for comentario in comentarios %}
 				<div class="rounded bg-white my-2 p-3 border">
 					<h5>{{ comentario.nombre }}

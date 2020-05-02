@@ -69,13 +69,15 @@ class PostsController extends AbstractController
         // var_dump($comentario);
         // die();
         $post = $em->getRepository(Posts::class)->find($id);
-        $queryComentarios = $em->getRepository(Comentarios::class)->buscarComentariosDeUNPost($post->getId());
+        $queryComentarios = $em->getRepository(Comentarios::class)->buscarComentariosDeUNPost($id);
         $form = $this->createForm(ComentarioType::class, $comentario);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
-            // $comentario->setPost($post->getId());
+            $comentario->setPost($post);
             $comentario->setUser($user);
+            // $comentario->setUserId($user->getId());
+            // $comentario->setPostId($post->getId());
 
             // var_dump($comentario);
             // die();
@@ -85,11 +87,17 @@ class PostsController extends AbstractController
             $this->addFlash('Exito', Comentarios::COMENTARIO_AGREGADO_EXITOSAMENTE);
             return $this->redirectToRoute('verPost', ['id'=>$post->getId()]);
         }
+       
+        
         $pagination = $paginator->paginate(
             $queryComentarios, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             20 /*limit per page*/
         );
+
+        // var_dump($pagination);
+        // die();
+        
         return $this->render('posts/verPost.html.twig', ['post'=>$post, 'form'=>$form->createView(), 'comentarios'=>$pagination]);
     }
 
