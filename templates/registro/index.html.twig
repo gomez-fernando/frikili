@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-{# {{ parent() }} #}
+{{ parent() }}
 {% for message in app.flashes('exito') %}
 <div class="alert alert-success">
 	{{ message }}

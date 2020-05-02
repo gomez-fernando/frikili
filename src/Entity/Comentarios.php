@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comentarios
 {
+    const COMENTARIO_AGREGADO_EXITOSAMENTE = '¡Comentario Agregado exitosamente!';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,12 +19,17 @@ class Comentarios
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=8000)
      */
     private $comentario;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=8000)
+     */
+    private $user_id;
+
+    /**
+     * @ORM\Column(type="string", length=8000)
      */
     private $fecha_publicacion;
 
@@ -36,6 +43,15 @@ class Comentarios
      */
     private $post;
 
+    /**
+     * Comentarios constructor
+     */
+    public function __construct($id)
+    {
+        $this->post_id = $id;
+        $this->fecha_publicacion = date('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,11 +62,43 @@ class Comentarios
         return $this->comentario;
     }
 
-    public function setComentario(?string $comentario): self
+    public function setComentario(string $comentario): self
     {
         $this->comentario = $comentario;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post): void
+    {
+        $this->posts = $post;
     }
 
     public function getFechaPublicacion(): ?\DateTimeInterface
@@ -61,6 +109,26 @@ class Comentarios
     public function setFechaPublicacion(\DateTimeInterface $fecha_publicacion): self
     {
         $this->fecha_publicacion = $fecha_publicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user_id
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of user_id
+     *
+     * @return  self
+     */
+    public function setUserId($userId)
+    {
+        $this->user_id = $userId;
 
         return $this;
     }

@@ -42,6 +42,9 @@ class PostsController extends AbstractController
             // obtenemos el usuario logueado
             $user = $this->getUser();
             $post->setUser($user);
+
+            // var_dump($post);
+            // die();
           
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -62,19 +65,25 @@ class PostsController extends AbstractController
     public function verPost($id, Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
-        $comentario = new Comentarios();
+        $comentario = new Comentarios($id);
+        // var_dump($comentario);
+        // die();
         $post = $em->getRepository(Posts::class)->find($id);
-        $queryComentarios = $em->getRepository(Comentarios::class)->BuscarComentariosDeUNPost($post->getId());
+        $queryComentarios = $em->getRepository(Comentarios::class)->buscarComentariosDeUNPost($post->getId());
         $form = $this->createForm(ComentarioType::class, $comentario);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
-            $comentario->setPosts($post);
+            // $comentario->setPost($post->getId());
             $comentario->setUser($user);
+
+            // var_dump($comentario);
+            // die();
+
             $em->persist($comentario);
             $em->flush();
             $this->addFlash('Exito', Comentarios::COMENTARIO_AGREGADO_EXITOSAMENTE);
-            return $this->redirectToRoute('VerPost', ['id'=>$post->getId()]);
+            return $this->redirectToRoute('verPost', ['id'=>$post->getId()]);
         }
         $pagination = $paginator->paginate(
             $queryComentarios, /* query NOT result */
