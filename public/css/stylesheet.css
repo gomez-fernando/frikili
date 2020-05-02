@@ -38,11 +38,13 @@ h4,
 h5,
 h6 {
   font-family: signikabold;
-  color: #f65c78;
+  /* color: #f65c78; */
+  color: #6bacac;
 }
 
 .navbar {
-  background-color: #f65c78 !important;
+  /* background-color: #f65c78 !important; */
+  background-color: #6bacac !important;
   font-family: signikabold;
   font-size: 1.5em;
   padding-top: 0;
@@ -78,4 +80,15 @@ h6 {
 
 .cursor:hover {
   cursor: pointer;
+}
+.btn-primary {
+  background-color: #4f8080;
+  border-color: #4f8080;
+}
+.btn-primary:hover {
+  background-color: #6aacac;
+  border-color: #6aacac;
+}
+#navbarSupportedContent {
+  text-align: end;
 }

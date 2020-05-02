@@ -3,9 +3,9 @@
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
+	<div class="container h-100 ">
+		<div class="row h-100 justify-content-center align-items-center ">
+			<div class="col-10 bg-white rounded my-3 p-5">
 				{% for post in posts %}
 					<div class="bg-white rounded p-3 my-3" onclick="window.location.href='{{ path('verPost',{id:post.id}) }}'" style="cursor: pointer">
 						<h3>{{ post.titulo }}</h3>
@@ -23,7 +23,6 @@
 					</div>
 				{% endfor %}
 			</div>
-			<div class="col-md-4"></div>
 		</div>
 	</div>
 {% endblock %}
