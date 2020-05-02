@@ -10,6 +10,7 @@ use App\Entity\Posts;
 use App\Entity\Comentarios;
 use App\Form\ComentarioType;
 use App\Form\PostsType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PostsController extends AbstractController
@@ -93,5 +94,26 @@ class PostsController extends AbstractController
 
         $posts = $em->getRepository(Posts::class)->findBy(['user' => $user]);
         return $this->render('posts/misPosts.html.twig', ['posts' => $posts]);
+    }
+
+    /**
+     * @Route("/likes", options={"expose"=true}, name="likes")
+     */
+    public function like(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $id = $request->request->get('id');
+            $post = $em->getRepository(Posts::class)->find($id);
+            $likes = $post->getLikes();
+            $likes .= $user->getId().',';
+            $post->setLikes($likes);
+            // no hace falta persistir porque esto ya está en la base de datos
+            $em->flush();
+            return new JsonResponse(['likes' => $likes]);
+        } else {
+            throw new \Exception('Petición no válida');
+        }
     }
 }

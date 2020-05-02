@@ -8,7 +8,7 @@
 		<div class="d-flex bd-highlight">
 			<div class="p-2 flex-grow-1 bd-highlight">
 				<h3>{{post.titulo}}</h3>
-				<div class="my-3" style="color:#3282b8;" onclick="MeGusta({{ post.id }})">
+				<div class="my-3" style="color:#3282b8;" onclick="meGusta({{ post.id }})">
 					<i class="fa fa-thumbs-up"></i>
 					<strong>
 						{% if app.user.id in  LikesDeEstePost %}
@@ -58,7 +58,7 @@
 	{% endblock %}
 	{% block javascripts %}
 		{{ parent() }}
-		{# <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-									<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-									<script src="{{ asset('js/ajax-call.js') }}"></script> #}
+		<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+		<script src="{{ asset('js/ajax-call.js') }}"></script>
 	{% endblock %}
