@@ -27,7 +27,7 @@ class Posts
     private $likes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $foto;
 
@@ -50,6 +50,15 @@ class Posts
      * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="post")
      */
     private $comentarios;
+    
+    /**
+     * Posts constructor
+     */
+    public function __construct()
+    {
+        $this->likes = '';
+        $this->fecha_publicacion = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -114,5 +123,38 @@ class Posts
         $this->contenido = $contenido;
 
         return $this;
+    }
+
+    // los getters y setters que faltan
+    /**
+     * @return mixed
+     */
+    public function getComentarios()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $comentarios
+     */
+    public function setComentarios($comentarios): void
+    {
+        $this->comentarios = $comentarios;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }

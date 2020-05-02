@@ -22,9 +22,6 @@ class RegistroController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // seteamos los datos que faltan
-            $user->setRoles(['ROLE_USER']);
-            $user->setBaneado(false);
             // securizar la contraseña
             $user->setPassword($passwordEncoder->encodePassword($user, $form['password']->getData()));
 
@@ -33,7 +30,7 @@ class RegistroController extends AbstractController
             $em->persist($user);
             $em->flush();
             // el mensaje flash no lee html, sólo texto plano
-            $this->addFlash('exito', 'Te has registrado correctamente. Ya puedes acceder desde el login.');
+            $this->addFlash('exito', User::REGISTRO_EXITOSO);
             return $this->redirectToRoute('registro');
         }
 

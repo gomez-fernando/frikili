@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const REGISTRO_EXITOSO = 'Te has registrado exitosamente. Ya puedes acceder desde el Login';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -57,6 +59,15 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Profesion", mappedBy="user")
      */
     private $profesiones;
+
+    // constructor para el objeto user
+    /**
+     * User constructor
+     */
+    public function __construct(){
+        $this->baneado = false;
+        $this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
