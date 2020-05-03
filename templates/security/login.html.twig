@@ -5,7 +5,7 @@
 
 {% block body %}
 	{{ parent() }}
-	<div class="container h-100">
+	<div class="container v-container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-10 col-md-8 col-lg-6 bg-white rounded my-3 p-5">
 				<form method="post">
@@ -32,15 +32,15 @@
 					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 					{#
-											        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-											        See https://symfony.com/doc/current/security/remember_me.html
-											
-											        <div class="checkbox mb-3">
-											            <label>
-											                <input type="checkbox" name="_remember_me"> Remember me
-											            </label>
-											        </div>
-											    #}
+																        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																        See https://symfony.com/doc/current/security/remember_me.html
+																
+																        <div class="checkbox mb-3">
+																            <label>
+																                <input type="checkbox" name="_remember_me"> Remember me
+																            </label>
+																        </div>
+																    #}
 
 					<button class="btn btn-primary mt-3" type="submit">
 						Entrar
